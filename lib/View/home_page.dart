@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
               //    padding: const EdgeInsets.all(8.0),
               //    child: Text('hello world'),
               //  ),
-              // Image.asset('assets/images/dollar-gill-0V7_N62zZcU-unsplash.jpg'),
+              Image.asset('assets/images/dollar-gill-0V7_N62zZcU-unsplash.jpg'),
               Container(
                   height: 250,
                   width: double.infinity,
