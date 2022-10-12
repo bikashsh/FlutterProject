@@ -1,5 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sampleproject/Models/book.dart';
+import 'package:sampleproject/View/widgets/book_show.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 
@@ -9,6 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final topBar = MediaQuery.of(context).padding.top;
+    final h = Get.height;
     final bottomBar = MediaQuery.of(context).padding.bottom;
     // final height = MediaQuery.of(context).size.height - topBar;
     final height = 100.h - topBar;
@@ -47,11 +51,79 @@ class HomePage extends StatelessWidget {
               //    padding: const EdgeInsets.all(8.0),
               //    child: Text('hello world'),
               //  ),
-              Image.asset('assets/images/dollar-gill-0V7_N62zZcU-unsplash.jpg'),
+              //  Image.asset('assets/images/dollar-gill-0V7_N62zZcU-unsplash.jpg'),
               Container(
-                  height: 250,
+                  height: 240,
                   width: double.infinity,
-                  child: Image.network('https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',)),
+                  child: CachedNetworkImage(
+                    imageUrl: 'https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+                    errorWidget: (c, s, d) => Image.asset('assets/images/unsplash.jpg'),
+                    placeholder: (c, s) => Center(child: CircularProgressIndicator()),
+                  )
+              ),
+
+
+              // next widget
+
+              BookShow(),
+              // CircleAvatar(
+              //   radius: 50,
+              //   backgroundImage: AssetImage('assets/images/unsplash.jpg'),
+              // ),
+
+              //next widget
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                child: Text('You may also like', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600),),
+              ),
+
+              //next widget
+              Container(
+                height: 320,
+                width: width,
+                child: ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: books.length,
+                    itemBuilder: (context, index){
+                      return Container(
+                        padding: EdgeInsets.only(left:index == 0? 5 : 0),
+                        margin: EdgeInsets.only(right: 5),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 170,
+                              width: 140,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(books[index].imageUrl, fit:BoxFit.fitWidth,)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: Text(books[index].title),
+                            ),
+                            Text(books[index].genre, style: TextStyle(color: Colors.blue),)
+                            // TextButton(
+                            //   style: TextButton.styleFrom(
+                            //     padding: EdgeInsets.all(0) ,
+                            //     minimumSize: Size(100, 10)
+                            //   ),
+                            //     onPressed: (){
+                            //     print('hello world');
+                            //     }, child: Text(books[index].genre)
+                            // )
+
+                          ],
+                        ),
+                      );
+                    }
+                ),
+              ),
+
+
+
             ],
           ),
         )
