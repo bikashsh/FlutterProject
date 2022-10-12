@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sampleproject/View/home_page.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 
+//
+// Future<void> getData() async{
+//  await Future.delayed(Duration(seconds: 10));
+//   print('hello world');
+// }
+
 
 void main(){
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Color(0xFFF2F5F9)
-  ));
-  runApp(Home());
+  //getData();
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  //   statusBarColor: Color(0xFFF2F5F9)
+  // ));
+  runApp(ProviderScope(child: Home()));
 }
 
 
 class Home extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Sizer(
         builder: (context, orientation, deviceType) {
           return GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              //  themeMode: ThemeMode.dark,
-              //   theme: ThemeData.dark().copyWith(
-              //     buttonColor: Colors.black,
-              //   ),
+              theme: ThemeData.dark().copyWith(
+                  scaffoldBackgroundColor: Colors.black,
+                  appBarTheme: AppBarTheme(color: Colors.black)
+              ),
               home: HomePage()
           );
         }
     );
   }
 }
+
